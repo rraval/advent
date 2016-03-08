@@ -7,15 +7,15 @@ main = runTestTT $ TestList
     [ TestCase $ assertEqual "Store and Read"
         (Right $ LiteralValue 16)
         (eval
-            [Store { dst = WireName "a", expr = Atom $ Literal $ LiteralValue 16 }]
+            [Store (WireName "a") (Atom $ Literal $ LiteralValue 16)]
             (WireName "a")
         )
 
     , TestCase $ assertEqual "Simple Cycle"
         (Left $ CycleDetected [WireName "x", WireName "y", WireName "x"])
         (eval
-            [ Store { dst = WireName "x", expr = Atom $ Wire $ WireName "y" }
-            , Store { dst = WireName "y", expr = Atom $ Wire $ WireName "x" }
+            [ Store (WireName "x") (Atom $ Wire $ WireName "y")
+            , Store (WireName "y") (Atom $ Wire $ WireName "x")
             ]
             (WireName "x")
         )

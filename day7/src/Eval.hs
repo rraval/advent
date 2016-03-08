@@ -11,7 +11,7 @@ type SeenWireSet = S.Set WireName
 type SeenWireList = [WireName]
 
 process :: [Instruction] -> WireTable
-process = M.fromList . map (\x -> (dst x, expr x))
+process = M.fromList . map (\(Store d e) -> (d, e))
 
 data LookupError =
       NoSuchWire WireName

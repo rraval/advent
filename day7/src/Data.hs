@@ -19,4 +19,4 @@ data Expr =
     | RShift Operand Operand
     | Not Operand
 
-data Instruction = Store { dst :: WireName, expr :: Expr }
+data Instruction = Store WireName Expr
