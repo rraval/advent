@@ -46,7 +46,7 @@ lookupExpr tbl set lst expr = case expr of
     lop = lookupOperand tbl set lst
 
     asInt :: LookupResult -> Either LookupError Int
-    asInt r = (flip fmap) r (\(LiteralValue w) -> fromIntegral w)
+    asInt = fmap (\(LiteralValue w) -> fromIntegral w)
 
 eval :: [Instruction] -> WireName -> LookupResult
 eval insts wire = lookupWire (process insts) S.empty [] wire
