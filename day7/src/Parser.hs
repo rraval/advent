@@ -9,6 +9,8 @@ lexeme :: String -> Parser String
 lexeme s = sp *> string s <* sp
   where sp = (skipMany $ oneOf " \t") <?> "white space"
 
+instructionListParser = manyTill instructionParser (try $ spaces *> eof)
+
 instructionParser = spaces *> go
   where go = Store <$> exprParser <* lexeme "->" <*> (WireName <$> some lower <?> "wire")
 
