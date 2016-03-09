@@ -63,9 +63,21 @@ main = runTestTT $ TestList
         [ TestLabel "Simple" $ TestCase $ assertProgram
             (LiteralValue 7)
             (WireName "result")
-                " 0 -> x                  \n\
-                \ x OR 7 -> y             \n\
-                \ y AND 15 -> result        "
+                " 0 -> x                \n\
+                \ x OR 7 -> y           \n\
+                \ y AND 15 -> result    \n"
+
+        , TestLabel "Example" $ TestCase $ assertProgram
+            (LiteralValue 65079)
+            (WireName "i")
+                " 123 -> x              \n\
+                \ 456 -> y              \n\
+                \ x AND y -> d          \n\
+                \ x OR y -> e           \n\
+                \ x LSHIFT 2 -> f       \n\
+                \ y RSHIFT 2 -> g       \n\
+                \ NOT x -> h            \n\
+                \ NOT y -> i            \n"
         ]
     ]
 
