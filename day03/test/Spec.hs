@@ -15,20 +15,20 @@ ex3 =
 
 main = runTestTT $ TestList
     [ TestLabel "deliver" $ TestList
-        [ deliverPresents [] ~?= DeliveryState
+        [ deliverPresents [[]] ~?= [DeliveryState
             { currentHouse = House 0 0
             , houseMap = M.fromList [(House 0 0, PresentCount 1)]
-            }
+            }]
 
-        , deliverPresents ex1 ~?= DeliveryState
+        , deliverPresents [ex1] ~?= [DeliveryState
             { currentHouse = House 1 0
             , houseMap = M.fromList
                 [ (House 0 0, PresentCount 1)
                 , (House 1 0, PresentCount 1)
                 ]
-            }
+            }]
 
-        , deliverPresents ex2 ~?= DeliveryState
+        , deliverPresents [ex2] ~?= [DeliveryState
             { currentHouse = House 0 0
             , houseMap = M.fromList
                 [ (House 0 0, PresentCount 2)
@@ -36,15 +36,15 @@ main = runTestTT $ TestList
                 , (House 1 1, PresentCount 1)
                 , (House 1 0, PresentCount 1)
                 ]
-            }
+            }]
 
-        , deliverPresents ex3 ~?= DeliveryState
+        , deliverPresents [ex3] ~?= [DeliveryState
             { currentHouse = House 0 0
             , houseMap = M.fromList
                 [ (House 0 0, PresentCount 6)
                 , (House 0 1, PresentCount 5)
                 ]
-            }
+            }]
         ]
 
     , TestLabel "parse" $ TestList
