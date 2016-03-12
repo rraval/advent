@@ -16,4 +16,9 @@ main = runTestTT $ TestList
         , Just present2 ~=? parsePresent "1x1x10"
         , Nothing ~=? parsePresent "1x1"
         ]
+
+    , TestLabel "ribbon" $ TestList
+        [ 34 ~=? ribbon present1
+        , 14 ~=? ribbon present2
+        ]
     ]

@@ -7,13 +7,18 @@ import System.Environment (getArgs)
 import Lib
 
 main :: IO ()
-main = getArgs >>= readFile . head >>= print . sumMaybe . toWrapping . parsePresentList
+main = getArgs >>= go
   where
+    go :: [String] -> IO ()
+    go ("first":file:_) = go' file wrapping
+    go ("second":file:_) = go' file ribbon
+    go _ = putStrLn "Usage: day2-exe (first FILE | second FILE)"
+
+    go' :: String -> (Present -> Int) -> IO ()
+    go' file func = readFile file >>= print . sumMaybe . map (func <$>) . parsePresentList
+
     parsePresentList :: String -> [Maybe Present]
     parsePresentList = map parsePresent . lines
-
-    toWrapping :: [Maybe Present] -> [Maybe Int]
-    toWrapping = map (wrapping <$>)
 
     sumMaybe :: [Maybe Int] -> Maybe Int
     sumMaybe = foldl1' $ liftA2 (+)
